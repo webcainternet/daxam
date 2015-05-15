@@ -119,6 +119,16 @@ $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></
 });
 //--></script>
 <?php } ?>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.3&appId=456589514493827";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <?php echo $google_analytics; ?>
 </head>
 <body class="<?php echo empty($this->request->get['route']) ? 'common-home' : str_replace('/', '-', $this->request->get['route']); ?>"><a id="hidden" href="<?php echo $base; ?>"></a>
@@ -210,12 +220,19 @@ $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></
 					<?php if ($logo) { ?>
 						<div id="logo"><a href="<?php echo $home; ?>"><img src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" /></a></div>
 					<?php } ?>
+					
 					<div class="cart-position">
 						<div class="cart-inner"><?php echo $cart; ?></div>
 					</div>
 					<div class="phone">
 						<i class="fa fa-phone"></i>
 						<?php echo $telephone; ?>
+					</div>
+
+					<div class="cart-position">
+						<div class="cart-inner" style="width: 550px; text-align: right;">
+                        	Aqui vai os dados de endereço e CNPJ Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um e pode Aqui vai os dados de endereço e CNPJ Lorem Ipsum é simp
+						</div>
 					</div>
 					
 					<div class="clear"></div>

@@ -4,7 +4,12 @@
 </div>
 <div class="clear"></div>
 </section>
+	<div class="container" style="background-color: #FFF; margin-top: 10px; padding-top: 0px; margin-bottom: 10px; padding-bottom: 0px;">
+		<div class="fb-like" data-href="https://facebook.com/lojavirtual.digital" data-width="1170" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+	</div>
+
 <footer>
+
 	<div class="container">
 		<div class="row">
 			<?php if ($informations) { ?>
@@ -72,10 +77,13 @@
 	</div>
 	<div id="powered">
 		<div class="container">
-			<div class="row">
+			<div class="row" style="float: left; width: 49%;">
 				<div class="col-sm-12">
 					<?php echo $powered; ?><!-- [[%FOOTER_LINK]] -->
 				</div>
+			</div>
+			<div class="row" style="float: right; width: 49%; text-align: right;">
+				<img src="http://daxam.homolog.lojavirtual.digital/catalog/view/theme/theme390/image/footer-bandeiras.png" style="height: 22px;" height="22">
 			</div>
 		</div>
 	</div>

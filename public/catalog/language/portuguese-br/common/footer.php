@@ -15,5 +15,11 @@ $_['text_account']      = 'Minha Conta';
 $_['text_order']        = 'Histórico de Pedidos';
 $_['text_wishlist']     = 'Lista de Desejos';
 $_['text_newsletter']   = 'Boletim Informativo';
-$_['text_powered']      = 'Powered By <a href="http://www.opencart.com">OpenCart</a><br /> %s &copy; %s';
+$_['text_powered']      = 'Desenvolvido por <a href="http://lojavirtual.digital" target="_blank">LojaVirtual.digital</a> - %s &copy; %s';
+$_['text_follow']       = 'Siga nos';
+$_['text_support']      = 'Atendimento';
+$_['text_fb']           = '<a href="https://www.facebook.com/daxamtour">Facebook</a>';
+$_['text_twi']          = '<a href="https://plus.google.com/112925221149179908042/posts">Google Plus</a>';
+$_['text_rss']          = '';
+$_['text_yt']          = '';
 ?>

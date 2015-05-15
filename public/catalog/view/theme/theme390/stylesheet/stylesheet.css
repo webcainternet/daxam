@@ -866,7 +866,7 @@ header .links a.active, header .links a:hover {
 header .links a {
 	display:inline-block;
 	font-size:11px;
-	color:#ababab;
+	color:#FFF;
 	line-height:18px;
 	vertical-align:top;
 	text-transform:uppercase;
@@ -884,7 +884,7 @@ header .links a {
 .phone a {font-size:30px; color:#fff}
 .phone {
 	float:right;
-	color:#fff;
+	color:#efc94c;
 	font-size:30px;
 	font-weight:300;
 	font-family: 'Open Sans', sans-serif;
@@ -3132,7 +3132,7 @@ span.toggle {
 #powered a {
 	font-size:11px;
 	text-decoration:none;
-	color:#758290;
+	color:#FFF;
 	}
 #powered a:hover {
 	color:#efc94c;
@@ -3141,8 +3141,8 @@ span.toggle {
 	margin-top:75px;
 	padding:23px 0;
 	font-size:11px;
-	background-color:#3e454c;
-	color:#758290;
+	background-color:#393987;
+	color:#FFF;
 	line-height:21px;
 	}
 .return-captcha input img {vertical-align:top;}
