@@ -19,7 +19,7 @@
 	min-width:1170px
 	}
 }
-@media (min-width: 768px) {
+@media (min-width: 235px) {
 .content_bottom .banner>div a {overflow:hidden;}
 .content_bottom .banner>div a:hover .s-desc > i {
 	background-color:#d6d7d8;
@@ -33,7 +33,7 @@
 .banner>div:hover h1 {
 	
 	}
-header {min-height:288px;}
+header {min-height:235px;}
 .box .box-content .box-product ul li {
 	padding-bottom:64px;
 	border-bottom:1px solid #ebeced;

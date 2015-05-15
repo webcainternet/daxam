@@ -334,10 +334,11 @@ a#hidden {
 /* header */
 
 header {
-	background:url(../image/header.jpg) repeat-x center top;
+	/* background:url(../image/header.jpg) repeat-x center top; */
 	position: relative;
 	color:#9d9d9d;
 	padding-bottom:0px;
+	border-bottom: #efc94c solid 4px;
 	}
 header #logo a img {
 	vertical-align:top;
@@ -827,10 +828,11 @@ header #cart .empty {
 /* menu */
 /****************************************************************************************************************************************************************************************/
 header .toprow {
-	background-color:#fff;
 	width:100%;
 	padding:18px 0 17px;
-	margin-bottom:71px;
+	margin-bottom:10px;
+	background-color: #393987;
+  	color: #FFF;
 	}
 header .toprow-1 {
 	z-index:100;
@@ -2192,6 +2194,7 @@ h1.style-1 {
 	text-transform:none;
 	font-weight:normal;
 	margin-left:10px;
+	display: none;
 	}
 .product-info .price .discount{
 	text-transform:none;
