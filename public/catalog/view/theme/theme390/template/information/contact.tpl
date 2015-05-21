@@ -13,7 +13,7 @@
 		<div class="content row">
 			<div class="map-left col-sm-6">      
 				<div class="contact-box"><i class="fa fa-home"></i><b><?php echo $text_address; ?></b>
-					<?php echo $address; ?>
+					<br><?php echo $address; ?>
 				</div>
 				<div class="contact-box">
 					<?php if ($telephone) { ?>
@@ -30,8 +30,8 @@
 			</div>
 			<div class="map-content col-sm-6">         
 				<figure>
-				<iframe width="100%" height="200px"  src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Brooklyn,+New+York,+NY,+United+States&amp;aq=0&amp;sll=37.0625,-95.677068&amp;sspn=61.282355,146.513672&amp;ie=UTF8&amp;hq=&amp;hnear=Brooklyn,+Kings,+New+York&amp;ll=40.649974,-73.950005&amp;spn=0.01628,0.025663&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>
-				</figure>
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3655.612466279217!2d-46.67146100000003!3d-23.61822750000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce50a01f12d4b7%3A0xcb96ee6d1ddbb2b2!2sR.+Dem%C3%B3stenes%2C+890+-+Campo+Belo%2C+S%C3%A3o+Paulo+-+SP%2C+04614-014!5e0!3m2!1spt-BR!2sbr!4v1432225229351" width="100%" height="300" frameborder="0" style="border:0"></iframe>
+
 			</div>
 		</div>
 	</div>
