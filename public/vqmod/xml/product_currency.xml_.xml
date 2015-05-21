@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+	<id>Product Currency</id>
+	<version>1.5.x</version>
+	<vqmver>2.x</vqmver>
+	<author>Racasanu Crinel</author>
+	
+	<!-- ADMIN -->
+
+	<!-- View  -->
+
+	<file name="admin/view/template/catalog/product_form.tpl">
+
+		<!-- Product Currency -->
+
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td><input type="text" name="price" value="<?php echo $price; ?>" /></td>]]></search>
+			<add><![CDATA[<td><input type="text" name="price" value="<?php echo $price; ?>" /><select name="product_currency">
+			<?php foreach ($currencies as $currency){ ?>
+				<option value="<?php echo $currency['code']; ?>" <?php if($currency['code'] == $currency_product) echo "selected"; ?> ><?php echo $currency['code']; ?></option>
+			<?php } ?>
+			</select> </td>]]></add>
+		</operation>
+
+		<!-- Option Currency -->
+
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td class="right"><select name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][price_prefix]">]]></search>
+			<add><![CDATA[ <td class="right">
+				<select name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][currency_option]">
+					<?php foreach ($currencies as $currency){ ?>
+						<option value="<?php echo $currency['code']; ?>" <?php if($currency['code'] == $product_option_value['currency_option']) echo "selected"; ?> ><?php echo $currency['code']; ?></option>
+					<?php } ?>
+				</select>
+				<select name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][price_prefix]">]]></add>
+		</operation>
+
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '    <td class="right"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][price_prefix]">';]]></search>
+			<add><![CDATA[html += '    <td class="right">';
+				html += '<select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][currency_option]">';
+				<?php foreach ($currencies as $currency){ ?>
+					html += '<option value="<?php echo $currency["code"]; ?>"><?php echo $currency["code"]; ?></option>';
+				<?php } ?>
+				html += '</select>';
+				html += '<select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][price_prefix]">';]]></add>
+		</operation>
+
+		<!-- Discount Currency -->
+
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td class="right"><input type="text" name="product_discount[<?php echo $discount_row; ?>][price]" value="<?php echo $product_discount['price']; ?>" /></td>]]></search>
+			<add><![CDATA[<td class="right">
+				<select name="product_discount[<?php echo $discount_row; ?>][currency_discount]">
+					<?php foreach ($currencies as $currency){ ?>
+						<option value="<?php echo $currency['code']; ?>" <?php if($currency['code'] == $product_discount['currency_discount']) echo "selected"; ?> ><?php echo $currency['code']; ?></option>
+					<?php } ?>
+				</select>
+				<input type="text" name="product_discount[<?php echo $discount_row; ?>][price]" value="<?php echo $product_discount['price']; ?>" /></td>]]></add>
+		</operation>
+		
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '    <td class="right"><input type="text" name="product_discount[' + discount_row + '][price]" value="" /></td>';]]></search>
+			<add><![CDATA[html += '    <td class="right">';
+				html += '<select name="product_discount[' + discount_row + '][currency_discount]">';
+					<?php foreach ($currencies as $currency){ ?>
+						html += '<option value="<?php echo $currency["code"]; ?>"><?php echo $currency["code"]; ?></option>';
+					<?php } ?>
+				html += '</select>';
+				html += '<input type="text" name="product_discount[' + discount_row + '][price]" value="" /></td>';
+			]]></add>
+		</operation>
+
+		<!-- Special Currency-->
+
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td class="right"><input type="text" name="product_special[<?php echo $special_row; ?>][price]" value="<?php echo $product_special['price']; ?>" /></td>]]></search>
+			<add><![CDATA[<td class="right">
+				<select name="product_special[<?php echo $special_row; ?>][currency_special]">
+					<?php foreach ($currencies as $currency){ ?>
+						<option value="<?php echo $currency['code']; ?>" <?php if($currency['code'] == $product_special['currency_special']) echo "selected"; ?> ><?php echo $currency['code']; ?></option>
+					<?php } ?>
+				</select>
+				<input type="text" name="product_special[<?php echo $special_row; ?>][price]" value="<?php echo $product_special['price']; ?>" /></td>]]></add>
+		</operation>
+
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '    <td class="right"><input type="text" name="product_special[' + special_row + '][price]" value="" /></td>';]]></search>
+			<add><![CDATA[html += '    <td class="right">';
+				html += '<select name="product_special[' + special_row + '][currency_special]">';
+					<?php foreach ($currencies as $currency){ ?>
+						html += '<option value="<?php echo $currency["code"]; ?>"><?php echo $currency["code"]; ?></option>';
+					<?php } ?>
+				html += '</select>';
+				html += '<input type="text" name="product_special[' + special_row + '][price]" value="" /></td>';]]></add>
+		</operation>
+
+	</file>
+
+	<!-- END View -->
+
+	<!-- Controller  -->
+
+	<file name="admin/controller/catalog/product.php">
+
+		<!-- Product Currency -->
+
+		<operation error="skip">
+			<search position="before"><![CDATA[$this->load->model('localisation/stock_status');]]></search>
+			<add><![CDATA[$this->load->model('localisation/currency');
+				$this->data['currencies'] = $this->model_localisation_currency->getCurrencies();
+				if (isset($this->request->post['currency_product'])) {
+					$this->data['currency_product'] = $this->request->post['currency_product'];
+					} elseif (!empty($product_info)) {
+						$this->data['currency_product'] = $product_info['currency_product'];
+					} else {
+						$this->data['currency_product'] = '';
+					}
+				]]></add>
+		</operation>
+		
+		<!-- Option Currency -->
+
+		<operation error="skip">
+			<search position="before"><![CDATA['price'                   => $product_option_value['price'],]]></search>
+			<add><![CDATA['currency_option'                   => $product_option_value['currency_option'],]]></add>
+		</operation>
+	
+		<!-- Product List Currency Special -->
+
+		<operation error="skip">
+			<search position="replace"><![CDATA[$special = $product_special['price'];]]></search>
+			<add><![CDATA[$special = $product_special['price'].' '.$product_special['currency_special'];]]></add>
+		</operation>
+		
+		<!-- Product List Currency Product -->
+
+		<operation error="skip">
+			<search position="replace"><![CDATA['price'      => $result['price'],]]></search>
+			<add><![CDATA['price'      => $result['price'].' '.$result['currency_product'],]]></add>
+		</operation>
+
+	</file>
+
+	<!-- END Controller -->
+
+	<!-- Model -->
+
+	<file name="admin/model/catalog/product.php">
+
+		<!-- Product Currency -->
+
+		<operation error="skip">
+			<search position="after"><![CDATA[$product_id = $this->db->getLastId();]]></search>
+			<add><![CDATA[if(isset($data['product_currency'])){
+					$this->db->query("UPDATE `" . DB_PREFIX . "product` SET `currency_product`= '" .$this->db->escape($data['product_currency']). "' WHERE `product_id`= '" .(int)$product_id. "' ");
+				}]]></add>
+		</operation>
+
+		<operation error="skip">
+			<search position="after"><![CDATA[public function editProduct($product_id, $data) {]]></search>
+			<add><![CDATA[if(isset($data['product_currency'])){
+					$this->db->query("UPDATE `" . DB_PREFIX . "product` SET `currency_product`= '" .$this->db->escape($data['product_currency']). "' WHERE `product_id`= '" .(int)$product_id. "' ");
+				}]]></add>
+		</operation>
+
+		<!-- Option Currency -->
+
+		<operation error="skip">
+			<search position="before"><![CDATA['price'                   => $product_option_value['price'],]]></search>
+			<add><![CDATA['currency_option'                   => $product_option_value['currency_option'],]]></add>
+		</operation>
+
+		<operation error="skip">
+			<search position="after"><![CDATA[$this->db->query("INSERT INTO " . DB_PREFIX . "product_option_value SET product_option_value_id = '" . (int)$product_option_value['product_option_value_id'] . "', product_option_id = '" . (int)$product_option_id . "', product_id = '" . (int)$product_id . "', option_id = '" . (int)$product_option['option_id'] . "', option_value_id = '" . (int)$product_option_value['option_value_id'] . "', quantity = '" . (int)$product_option_value['quantity'] . "', subtract = '" . (int)$product_option_value['subtract'] . "', price = '" . (float)$product_option_value['price'] . "', price_prefix = '" . $this->db->escape($product_option_value['price_prefix']) . "', points = '" . (int)$product_option_value['points'] . "', points_prefix = '" . $this->db->escape($product_option_value['points_prefix']) . "', weight = '" . (float)$product_option_value['weight'] . "', weight_prefix = '" . $this->db->escape($product_option_value['weight_prefix']) . "'");]]></search>
+			<add><![CDATA[
+				if(isset($product_option_value['currency_option'])){
+				$product_option_valueId = $this->db->getLastId();
+				$this->db->query("UPDATE `" . DB_PREFIX . "product_option_value` SET `currency_option` = '" .$this->db->escape($product_option_value['currency_option']). "' WHERE `product_option_value_id` = '" .(int)$product_option_valueId. "' ");
+				}]]></add>
+		</operation>
+
+		<operation error="skip">
+			<search position="after"><![CDATA[$this->db->query("INSERT INTO " . DB_PREFIX . "product_option_value SET product_option_id = '" . (int)$product_option_id . "', product_id = '" . (int)$product_id . "', option_id = '" . (int)$product_option['option_id'] . "', option_value_id = '" . (int)$product_option_value['option_value_id'] . "', quantity = '" . (int)$product_option_value['quantity'] . "', subtract = '" . (int)$product_option_value['subtract'] . "', price = '" . (float)$product_option_value['price'] . "', price_prefix = '" . $this->db->escape($product_option_value['price_prefix']) . "', points = '" . (int)$product_option_value['points'] . "', points_prefix = '" . $this->db->escape($product_option_value['points_prefix']) . "', weight = '" . (float)$product_option_value['weight'] . "', weight_prefix = '" . $this->db->escape($product_option_value['weight_prefix']) . "'");]]></search>
+			<add><![CDATA[if(isset($product_option_value['currency_option'])){
+				$product_option_valueId = $this->db->getLastId();
+				$this->db->query("UPDATE `" . DB_PREFIX . "product_option_value` SET `currency_option` = '" .$this->db->escape($product_option_value['currency_option']). "' WHERE `product_option_value_id` = '" .(int)$product_option_valueId. "' ");
+				}]]></add>
+		</operation>
+
+		<!-- Discount Currency -->
+
+		<operation error="skip">
+			<search position="after" index="1,2"><![CDATA[$this->db->query("INSERT INTO " . DB_PREFIX . "product_discount SET product_id = '" . (int)$product_id . "', customer_group_id = '" . (int)$product_discount['customer_group_id'] . "', quantity = '" . (int)$product_discount['quantity'] . "', priority = '" . (int)$product_discount['priority'] . "', price = '" . (float)$product_discount['price'] . "', date_start = '" . $this->db->escape($product_discount['date_start']) . "', date_end = '" . $this->db->escape($product_discount['date_end']) . "'");]]></search>
+			<add><![CDATA[if(isset($product_discount['currency_discount'])){
+				$product_discountId = $this->db->getLastId();
+				$this->db->query("UPDATE `" . DB_PREFIX . "product_discount` SET `currency_discount` = '" .$this->db->escape($product_discount['currency_discount']). "' WHERE `product_discount_id` = '" .(int)$product_discountId. "' ");	
+				}]]></add>
+		</operation>
+
+		<!-- Special Currency -->
+
+		<operation error="skip">
+			<search position="after" index="1,2"><![CDATA[$this->db->query("INSERT INTO " . DB_PREFIX . "product_special SET product_id = '" . (int)$product_id . "', customer_group_id = '" . (int)$product_special['customer_group_id'] . "', priority = '" . (int)$product_special['priority'] . "', price = '" . (float)$product_special['price'] . "', date_start = '" . $this->db->escape($product_special['date_start']) . "', date_end = '" . $this->db->escape($product_special['date_end']) . "'");]]></search>
+			<add><![CDATA[if(isset($product_special['currency_special'])){
+					$product_specialId = $this->db->getLastId();
+					$this->db->query("UPDATE `" . DB_PREFIX . "product_special` SET `currency_special` = '" .$this->db->escape($product_special['currency_special']). "' WHERE `product_special_id` = '" .(int)$product_specialId. "'");
+				}]]></add>
+		</operation>
+
+	</file>
+
+	<!-- END Model-->
+
+	<!-- END ADMIN -->
+
+	<!-- CATALOG -->
+	
+	<!-- Model -->
+
+	<file name="catalog/model/catalog/product.php">
+
+		<!-- Special, Discount, Price -->
+
+		<operation error="skip">
+			<search position="replace" index="1"><![CDATA[		$query = $this->db->query("SELECT DISTINCT *, pd.name AS name, p.image, m.name AS manufacturer, (SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$customer_group_id . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < NOW()) AND (pd2.date_end = '0000-00-00' OR pd2.date_end > NOW())) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount, (SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$customer_group_id . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special, (SELECT points FROM " . DB_PREFIX . "product_reward pr WHERE pr.product_id = p.product_id AND customer_group_id = '" . (int)$customer_group_id . "') AS reward, (SELECT ss.name FROM " . DB_PREFIX . "stock_status ss WHERE ss.stock_status_id = p.stock_status_id AND ss.language_id = '" . (int)$this->config->get('config_language_id') . "') AS stock_status, (SELECT wcd.unit FROM " . DB_PREFIX . "weight_class_description wcd WHERE p.weight_class_id = wcd.weight_class_id AND wcd.language_id = '" . (int)$this->config->get('config_language_id') . "') AS weight_class, (SELECT lcd.unit FROM " . DB_PREFIX . "length_class_description lcd WHERE p.length_class_id = lcd.length_class_id AND lcd.language_id = '" . (int)$this->config->get('config_language_id') . "') AS length_class, (SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1 WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id) AS rating, (SELECT COUNT(*) AS total FROM " . DB_PREFIX . "review r2 WHERE r2.product_id = p.product_id AND r2.status = '1' GROUP BY r2.product_id) AS reviews, p.sort_order FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id) WHERE p.product_id = '" . (int)$product_id . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'");
+]]></search>
+			<add><![CDATA[		$query = $this->db->query("SELECT DISTINCT *, pd.name AS name, p.image, m.name AS manufacturer, (SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$customer_group_id . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < NOW()) AND (pd2.date_end = '0000-00-00' OR pd2.date_end > NOW())) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount, (SELECT currency_discount FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$customer_group_id . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < NOW()) AND (pd2.date_end = '0000-00-00' OR pd2.date_end > NOW())) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS currency_discount, (SELECT currency_special FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$customer_group_id . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS currency_special, (SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$customer_group_id . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special, (SELECT points FROM " . DB_PREFIX . "product_reward pr WHERE pr.product_id = p.product_id AND customer_group_id = '" . (int)$customer_group_id . "') AS reward, (SELECT ss.name FROM " . DB_PREFIX . "stock_status ss WHERE ss.stock_status_id = p.stock_status_id AND ss.language_id = '" . (int)$this->config->get('config_language_id') . "') AS stock_status, (SELECT wcd.unit FROM " . DB_PREFIX . "weight_class_description wcd WHERE p.weight_class_id = wcd.weight_class_id AND wcd.language_id = '" . (int)$this->config->get('config_language_id') . "') AS weight_class, (SELECT lcd.unit FROM " . DB_PREFIX . "length_class_description lcd WHERE p.length_class_id = lcd.length_class_id AND lcd.language_id = '" . (int)$this->config->get('config_language_id') . "') AS length_class, (SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1 WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id) AS rating, (SELECT COUNT(*) AS total FROM " . DB_PREFIX . "review r2 WHERE r2.product_id = p.product_id AND r2.status = '1' GROUP BY r2.product_id) AS reviews, p.sort_order FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id) WHERE p.product_id = '" . (int)$product_id . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'");
+]]></add>
+		</operation>
+		
+		<operation error="skip">
+			<search position="after" index="1"><![CDATA[if ($query->num_rows) {]]></search>
+			<add><![CDATA[if($query->row['discount']){
+					$query->row['discount'] = $this->currency->convert($query->row['discount'], $query->row['currency_discount'], $this->config->get('config_currency'));
+				}
+				if($query->row['price']){
+					$query->row['price'] = $this->currency->convert($query->row['price'], $query->row['currency_product'], $this->config->get('config_currency'));
+				}
+				if($query->row['special']){
+					$query->row['special'] = $this->currency->convert($query->row['special'], $query->row['currency_special'], $this->config->get('config_currency'));
+				}
+				]]></add>
+		</operation>
+
+		<!-- Option Currency -->
+
+		<operation error="skip">
+			<search position="replace"><![CDATA['price'                   => $product_option_value['price'],]]></search>
+			<add><![CDATA['price'                   => ($product_option_value['price'] ? $this->currency->convert($product_option_value['price'], $product_option_value['currency_option'], $this->config->get('config_currency')) : $product_option_value['price']),]]></add>
+		</operation>
+
+	</file>
+
+	<!-- Library -->
+	
+	<file name="system/library/cart.php">
+
+		<!-- Product Currency -->
+
+		<operation error="skip">
+			<search position="after"><![CDATA[$this->weight = $registry->get('weight');]]></search>
+			<add><![CDATA[$this->currency = $registry->get('currency');]]></add>
+		</operation>
+
+		<operation error="skip">
+			<search position="replace"><![CDATA[$price = $product_query->row['price'];]]></search>
+			<add><![CDATA[$price = ($product_query->row['price'] ? $this->currency->convert($product_query->row['price'],$product_query->row['currency_product'], $this->config->get('config_currency')): $product_query->row['price']);]]></add>
+		</operation>
+		<!-- Option Currency -->
+		<operation error="skip">
+			<search position="after" index="1"><![CDATA[if ($option_value_query->num_rows) {]]></search>
+			<add><![CDATA[$query_option_currency = $this->db->query("SELECT `currency_option` FROM `" . DB_PREFIX . "product_option_value` WHERE `product_option_value_id` = '" .(int)$option_value. "' ");
+				if($query_option_currency->num_rows && $option_value_query->row['price']){
+					$option_value_query->row['price'] = $this->currency->convert($option_value_query->row['price'],$query_option_currency->row['currency_option'], $this->config->get('config_currency'));
+				}
+				]]></add>
+		</operation>
+
+		<operation error="skip">
+			<search position="after" index="2"><![CDATA[if ($option_value_query->num_rows) {]]></search>
+			<add><![CDATA[$query_option_currency = $this->db->query("SELECT `currency_option` FROM `" . DB_PREFIX . "product_option_value` WHERE `product_option_value_id` = '" .(int)$product_option_value_id. "' ");
+				if($query_option_currency->num_rows && $option_value_query->row['price']){
+					$option_value_query->row['price'] = $this->currency->convert($option_value_query->row['price'],$query_option_currency->row['currency_option'], $this->config->get('config_currency'));
+				}
+				]]></add>
+		</operation>
+
+		<!-- Discount Currency -->
+
+		<operation error="skip">
+			<search position="replace"><![CDATA[$product_discount_query = $this->db->query("SELECT price FROM " . DB_PREFIX . "product_discount WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$customer_group_id . "' AND quantity <= '" . (int)$discount_quantity . "' AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) ORDER BY quantity DESC, priority ASC, price ASC LIMIT 1");]]></search>
+			<add><![CDATA[$product_discount_query = $this->db->query("SELECT price, currency_discount FROM " . DB_PREFIX . "product_discount WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$customer_group_id . "' AND quantity <= '" . (int)$discount_quantity . "' AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) ORDER BY quantity DESC, priority ASC, price ASC LIMIT 1");]]></add>
+		</operation>
+
+		<operation error="skip">
+			<search position="replace"><![CDATA[$price = $product_discount_query->row['price'];]]></search>
+			<add><![CDATA[$price = ($product_discount_query->row['price'] ? $this->currency->convert($product_discount_query->row['price'], $product_discount_query->row['currency_discount'], $this->config->get('config_currency')) : $product_discount_query->row['price']);]]></add>
+		</operation>
+		
+		<!-- Special Currency -->
+
+		<operation error="skip">
+			<search position="replace"><![CDATA[$product_special_query = $this->db->query("SELECT price FROM " . DB_PREFIX . "product_special WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$customer_group_id . "' AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) ORDER BY priority ASC, price ASC LIMIT 1");]]></search>
+			<add><![CDATA[$product_special_query = $this->db->query("SELECT price, currency_special FROM " . DB_PREFIX . "product_special WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$customer_group_id . "' AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) ORDER BY priority ASC, price ASC LIMIT 1");]]></add>
+		</operation>
+
+		<operation error="skip">
+			<search position="replace"><![CDATA[$price = $product_special_query->row['price'];]]></search>
+			<add><![CDATA[$price = ($product_special_query->row['price'] ? $this->currency->convert($product_special_query->row['price'], $product_special_query->row['currency_special'], $this->config->get('config_currency')) : $product_special_query->row['price']);]]></add>
+		</operation>
+
+	</file>
+
+	<!-- END CATALOG -->
+
+</modification>
