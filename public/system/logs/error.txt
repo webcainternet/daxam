@@ -363,3 +363,9 @@
 2015-04-26 15:35:11 - PHP Notice:  Undefined index: profile_id in /srv/httpd/daxam.homolog.lojavirtual.digital/daxam/public/admin/model/catalog/product.php on line 268
 2015-04-26 15:35:38 - PHP Notice:  Undefined index: profile_id in /srv/httpd/daxam.homolog.lojavirtual.digital/daxam/public/admin/model/catalog/product.php on line 268
 2015-04-26 15:36:51 - PHP Notice:  Undefined index: profile_id in /srv/httpd/daxam.homolog.lojavirtual.digital/daxam/public/admin/model/catalog/product.php on line 268
+2015-05-21 10:48:30 - PHP Notice:  Undefined index: profile_id in /Users/fernandomendes/github/daxam/public/vqmod/vqcache/vq2-admin_model_catalog_product.php on line 324
+2015-05-21 10:48:30 - PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/fernandomendes/github/daxam/public/admin/index.php:85) in /Users/fernandomendes/github/daxam/public/vqmod/vqcache/vq2-system_engine_controller.php on line 28
+2015-05-21 10:48:30 - PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/fernandomendes/github/daxam/public/admin/index.php:85) in /Users/fernandomendes/github/daxam/public/vqmod/vqcache/vq2-system_engine_controller.php on line 29
+2015-05-21 10:48:47 - PHP Notice:  Undefined index: profile_id in /Users/fernandomendes/github/daxam/public/vqmod/vqcache/vq2-admin_model_catalog_product.php on line 324
+2015-05-21 10:48:47 - PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/fernandomendes/github/daxam/public/admin/index.php:85) in /Users/fernandomendes/github/daxam/public/vqmod/vqcache/vq2-system_engine_controller.php on line 28
+2015-05-21 10:48:47 - PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/fernandomendes/github/daxam/public/admin/index.php:85) in /Users/fernandomendes/github/daxam/public/vqmod/vqcache/vq2-system_engine_controller.php on line 29

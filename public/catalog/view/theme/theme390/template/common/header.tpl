@@ -231,7 +231,14 @@ $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></
 
 					<div class="cart-position">
 						<div class="cart-inner" style="width: 550px; text-align: right;">
-                        	Aqui vai os dados de endereço e CNPJ Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um e pode Aqui vai os dados de endereço e CNPJ Lorem Ipsum é simp
+                        	<div style="float: left;
+										  width: 384px;
+										  font-size: 10px;
+										  line-height: 16px;
+										  color: #c0c0c0;">
+                        	onsulte os prestadores de serviços turísticos regularmente cadastrados e acesse os dados completos desses prestadores. 26.063704.10.0001-1 e serviços turísticos regularmente cadastrados e acesse os dad serviços turísticos regularmente cadastrados e acesse os dad
+                        	</div>
+                        	<div style="float: right; width: 165px;"><img src="/image/data/cadastur.png"></div>
 						</div>
 					</div>
 					
