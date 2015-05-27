@@ -1,4 +1,0 @@
-Open "upload" folder and upload in your root directory.
-After go to Extensions->Modules and install "Product Currency".
-
-For support contact at email: racasanucrinel@yahoo.com
