@@ -246,6 +246,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 										  font-size: 10px;
 										  line-height: 16px;
 										  margin-right: 10px;
+										  margin-top: 15px;
 										  color: #c0c0c0;">
                         	Daxam Tour Operator - 26.063704.10.0001-1<br>Rua Demóstenes, 890, Campo Belo, São Paulo, SP, 04614-014<br>Contato: daxam.tur@gmail.com
                         	</div>
