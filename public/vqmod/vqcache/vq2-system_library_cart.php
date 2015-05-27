@@ -12,8 +12,6 @@ class Cart {
 		$this->db = $registry->get('db');
 		$this->tax = $registry->get('tax');
 		$this->weight = $registry->get('weight');
-$this->currency = $registry->get('currency');
-$this->currency = $registry->get('currency');
 
 		if (!isset($this->session->data['cart']) || !is_array($this->session->data['cart'])) {
 			$this->session->data['cart'] = array();
@@ -56,25 +54,35 @@ $this->currency = $registry->get('currency');
 
 						if ($option_query->num_rows) {
 							if ($option_query->row['type'] == 'select' || $option_query->row['type'] == 'radio' || $option_query->row['type'] == 'image') {
-								$option_value_query = $this->db->query("SELECT pov.option_value_id, ovd.name, pov.quantity, pov.subtract, pov.price, pov.price_prefix, pov.points, pov.points_prefix, pov.weight, pov.weight_prefix FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value ov ON (pov.option_value_id = ov.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE pov.product_option_value_id = '" . (int)$option_value . "' AND pov.product_option_id = '" . (int)$product_option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+								
+	//Sun0703 start
+	$option_value_query = $this->db->query("SELECT pov.product_option_value_id,pov.option_value_id, ovd.name, pov.quantity, pov.subtract, pov.price, pov.price_prefix, pov.points, pov.points_prefix, pov.weight, pov.weight_prefix FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value ov ON (pov.option_value_id = ov.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE pov.product_option_value_id = '" . (int)$option_value . "' AND pov.product_option_id = '" . (int)$product_option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+	
+			if(isset($_SESSION['use_fixed_price'])){
+			$useorg = 1;
+			$query3 = $this->db->query("Select option_price from " . DB_PREFIX . "product_option_fixed_prices where code='".$_SESSION['currency']."' and product_option_value_id='".$option_value_query->row['product_option_value_id']."'");
+			foreach($query3->rows as $results) {
+				if($results['option_price']>0){
+				$option_value_query->row['price'] = $results['option_price'];
+				$useorg = 0;
+				}
+				}
+				
+				if($useorg){
+			  	$query4 = $this->db->query("SELECT value FROM " . DB_PREFIX . "currency where code='".$_SESSION['currency']."'");
+						foreach ($query4->rows as $result4) {
+						$option_value_query->row['price'] *= ($result4['value']);
+						}
+				}
+			}
+			//Sun0703 end
+	
 
 								if ($option_value_query->num_rows) {
-$query_option_currency = $this->db->query("SELECT `currency_option` FROM `" . DB_PREFIX . "product_option_value` WHERE `product_option_value_id` = '" .(int)$option_value. "' ");
-				if($query_option_currency->num_rows && $option_value_query->row['price']){
-					$option_value_query->row['price'] = $this->currency->convert($option_value_query->row['price'],$query_option_currency->row['currency_option'], $this->config->get('config_currency'));
-				}
-				
-$query_option_currency = $this->db->query("SELECT `currency_option` FROM `" . DB_PREFIX . "product_option_value` WHERE `product_option_value_id` = '" .(int)$option_value. "' ");
-				if($query_option_currency->num_rows && $option_value_query->row['price']){
-					$option_value_query->row['price'] = $this->currency->convert($option_value_query->row['price'],$query_option_currency->row['currency_option'], $this->config->get('config_currency'));
-				}
-				
 									if ($option_value_query->row['price_prefix'] == '+') {
 										$option_price += $option_value_query->row['price'];
 									} elseif ($option_value_query->row['price_prefix'] == '-') {
 										$option_price -= $option_value_query->row['price'];
-									} elseif ($option_value_query->row['price_prefix'] == 'z') {
-										$option_price += $option_value_query->row['price'];
 									}
 
 									if ($option_value_query->row['points_prefix'] == '+') {
@@ -113,25 +121,35 @@ $query_option_currency = $this->db->query("SELECT `currency_option` FROM `" . DB
 								}
 							} elseif ($option_query->row['type'] == 'checkbox' && is_array($option_value)) {
 								foreach ($option_value as $product_option_value_id) {
-									$option_value_query = $this->db->query("SELECT pov.option_value_id, ovd.name, pov.quantity, pov.subtract, pov.price, pov.price_prefix, pov.points, pov.points_prefix, pov.weight, pov.weight_prefix FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value ov ON (pov.option_value_id = ov.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE pov.product_option_value_id = '" . (int)$product_option_value_id . "' AND pov.product_option_id = '" . (int)$product_option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+									
+	//Sun0703 start
+	$option_value_query = $this->db->query("SELECT pov.product_option_value_id,pov.option_value_id, ovd.name, pov.quantity, pov.subtract, pov.price, pov.price_prefix, pov.points, pov.points_prefix, pov.weight, pov.weight_prefix FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value ov ON (pov.option_value_id = ov.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE pov.product_option_value_id = '" . (int)$product_option_value_id . "' AND pov.product_option_id = '" . (int)$product_option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+	
+			if(isset($_SESSION['use_fixed_price'])){
+			$useorg = 1;
+			$query3 = $this->db->query("Select option_price from " . DB_PREFIX . "product_option_fixed_prices where code='".$_SESSION['currency']."' and product_option_value_id='".$option_value_query->row['product_option_value_id']."'");
+			foreach($query3->rows as $results) {
+				if($results['option_price']>0){
+				$option_value_query->row['price'] = $results['option_price'];
+				$useorg = 0;
+				}
+				}
+				
+				if($useorg){
+			  	$query4 = $this->db->query("SELECT value FROM " . DB_PREFIX . "currency where code='".$_SESSION['currency']."'");
+						foreach ($query4->rows as $result4) {
+						$option_value_query->row['price'] *= ($result4['value']);
+						}
+				}
+			}
+			//Sun0703 end
+	
 
 									if ($option_value_query->num_rows) {
-$query_option_currency = $this->db->query("SELECT `currency_option` FROM `" . DB_PREFIX . "product_option_value` WHERE `product_option_value_id` = '" .(int)$product_option_value_id. "' ");
-				if($query_option_currency->num_rows && $option_value_query->row['price']){
-					$option_value_query->row['price'] = $this->currency->convert($option_value_query->row['price'],$query_option_currency->row['currency_option'], $this->config->get('config_currency'));
-				}
-				
-$query_option_currency = $this->db->query("SELECT `currency_option` FROM `" . DB_PREFIX . "product_option_value` WHERE `product_option_value_id` = '" .(int)$product_option_value_id. "' ");
-				if($query_option_currency->num_rows && $option_value_query->row['price']){
-					$option_value_query->row['price'] = $this->currency->convert($option_value_query->row['price'],$query_option_currency->row['currency_option'], $this->config->get('config_currency'));
-				}
-				
 										if ($option_value_query->row['price_prefix'] == '+') {
 											$option_price += $option_value_query->row['price'];
 										} elseif ($option_value_query->row['price_prefix'] == '-') {
 											$option_price -= $option_value_query->row['price'];
-									} elseif ($option_value_query->row['price_prefix'] == 'z') {
-										$option_price += $option_value_query->row['price'];
 										}
 
 										if ($option_value_query->row['points_prefix'] == '+') {
@@ -197,7 +215,28 @@ $query_option_currency = $this->db->query("SELECT `currency_option` FROM `" . DB
 						$customer_group_id = $this->config->get('config_customer_group_id');
 					}
 
-					$price = ($product_query->row['price'] ? $this->currency->convert($product_query->row['price'],$product_query->row['currency_product'], $this->config->get('config_currency')): $product_query->row['price']);
+					$price = $product_query->row['price'];
+
+	//Sun0703 start
+			if(isset($_SESSION['use_fixed_price'])){
+			$useorg = 1;
+			$query3 = $this->db->query("Select products_price from " . DB_PREFIX . "product_fixed_prices where code='".$_SESSION['currency']."' and product_id='".$product_query->row['product_id']."'");
+			foreach($query3->rows as $results) {
+				if($results['products_price']>0){
+				$price = $results['products_price'];
+				$useorg = 0;
+				}
+				}
+				
+				if($useorg){
+			  	$query4 = $this->db->query("SELECT value FROM " . DB_PREFIX . "currency where code='".$_SESSION['currency']."'");
+						foreach ($query4->rows as $result4) {
+						$price *= ($result4['value']);
+						}
+				}
+			}
+			//Sun0703 end
+	
 
 					// Product Discounts
 					$discount_quantity = 0;
@@ -210,17 +249,41 @@ $query_option_currency = $this->db->query("SELECT `currency_option` FROM `" . DB
 						}
 					}
 
-					$product_discount_query = $this->db->query("SELECT price, currency_discount FROM " . DB_PREFIX . "product_discount WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$customer_group_id . "' AND quantity <= '" . (int)$discount_quantity . "' AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) ORDER BY quantity DESC, priority ASC, price ASC LIMIT 1");
+					$product_discount_query = $this->db->query("SELECT price FROM " . DB_PREFIX . "product_discount WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$customer_group_id . "' AND quantity <= '" . (int)$discount_quantity . "' AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) ORDER BY quantity DESC, priority ASC, price ASC LIMIT 1");
 
 					if ($product_discount_query->num_rows) {
-						$price = ($product_discount_query->row['price'] ? $this->currency->convert($product_discount_query->row['price'], $product_discount_query->row['currency_discount'], $this->config->get('config_currency')) : $product_discount_query->row['price']);
+
+	//Sun0703 start
+			if(isset($_SESSION['use_fixed_price'])){
+			
+			  	$query4 = $this->db->query("SELECT value FROM " . DB_PREFIX . "currency where code='".$_SESSION['currency']."'");
+						foreach ($query4->rows as $result4) {
+						$product_discount_query->row['price']*= ($result4['value']);
+						}
+				
+			}
+			//Sun0703 end
+	
+						$price = $product_discount_query->row['price'];
 					}
 
 					// Product Specials
-					$product_special_query = $this->db->query("SELECT price, currency_special FROM " . DB_PREFIX . "product_special WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$customer_group_id . "' AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) ORDER BY priority ASC, price ASC LIMIT 1");
+					$product_special_query = $this->db->query("SELECT price FROM " . DB_PREFIX . "product_special WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$customer_group_id . "' AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) ORDER BY priority ASC, price ASC LIMIT 1");
 
 					if ($product_special_query->num_rows) {
-						$price = ($product_special_query->row['price'] ? $this->currency->convert($product_special_query->row['price'], $product_special_query->row['currency_special'], $this->config->get('config_currency')) : $product_special_query->row['price']);
+
+	//Sun0703 start
+			if(isset($_SESSION['use_fixed_price'])){
+			
+			  	$query4 = $this->db->query("SELECT value FROM " . DB_PREFIX . "currency where code='".$_SESSION['currency']."'");
+						foreach ($query4->rows as $result4) {
+						$product_special_query->row['price']*= ($result4['value']);
+						}
+				
+			}
+			//Sun0703 end
+	
+						$price = $product_special_query->row['price'];
 					}						
 
 					// Reward Points
