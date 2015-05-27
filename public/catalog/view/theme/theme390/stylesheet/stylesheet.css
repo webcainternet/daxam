@@ -379,8 +379,15 @@ body.ind .swipe-left {
 .swipe-control  {display:none;}
 #currency {
 	float:right;
+	/* display: none; */
+}
+/* Debug currency --
+.links .header-button {
 	display: none;
 }
+.col-sm-12 .header-button {
+	display: none;
+} */
 #currency >div .heading-1 {display:none;}
 .swipe-menu #currency {
 	float:none;
@@ -3595,10 +3602,3 @@ table.radio {margin:0; display:table}
 #fancybox-content {background-color:#fff;}
 
 
-
-.links .header-button {
-	display: none;
-}
-.col-sm-12 .header-button {
-	display: none;
-}
