@@ -5,7 +5,7 @@
 <div class="clear"></div>
 </section>
 	<div class="container" style="background-color: #FFF; margin-top: 10px; padding-top: 0px; margin-bottom: 10px; padding-bottom: 0px;">
-		<div class="fb-like" data-href="https://facebook.com/lojavirtual.digital" data-width="1170" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+		<div class="fb-like" data-href="https://facebook.com/daxamtour" data-width="1170" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 	</div>
 
 <footer>

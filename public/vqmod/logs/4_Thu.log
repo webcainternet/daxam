@@ -1,0 +1,75 @@
+---------- Date: 2015-05-21 12:00:28 ~ IP : 127.0.0.1 ----------
+REQUEST URI : /admin/index.php?route=catalog/product/update&amp;token=4912fa05e4e42532bf0ed1dd4b7111ea&amp;product_id=50
+MOD DETAILS:
+   modFile   : /Users/fernandomendes/github/daxam/public/vqmod/xml/fixedprice.xml_1.6.6.x.xml
+   id        : Fixed Price - OpenCart 1.5.2.x to 1.5.6.x core file modifications
+   version   : 1.1.9.1
+   vqmver    : 1.1.0
+   author    : yolanda_txw@hotmail.com
+
+File Name    : admin/view/template/catalog/product_form.tpl(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): <td><input type="text" name="price" value="<?php echo $price; ?>" /></td>
+
+----------------------------------------------------------------------
+
+
+---------- Date: 2015-05-21 12:00:44 ~ IP : 127.0.0.1 ----------
+REQUEST URI : /admin/index.php?route=catalog/product/update&amp;token=4912fa05e4e42532bf0ed1dd4b7111ea&amp;product_id=50
+MOD DETAILS:
+   modFile   : /Users/fernandomendes/github/daxam/public/vqmod/xml/fixedprice.xml_1.6.6.x.xml
+   id        : Fixed Price - OpenCart 1.5.2.x to 1.5.6.x core file modifications
+   version   : 1.1.9.1
+   vqmver    : 1.1.0
+   author    : yolanda_txw@hotmail.com
+
+File Name    : admin/view/template/catalog/product_form.tpl(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): <td><input type="text" name="price" value="<?php echo $price; ?>" /></td>
+
+----------------------------------------------------------------------
+
+
+---------- Date: 2015-05-21 12:01:30 ~ IP : 127.0.0.1 ----------
+REQUEST URI : /admin/index.php?route=catalog/product/update&amp;token=4912fa05e4e42532bf0ed1dd4b7111ea&amp;product_id=62&amp;filter_name=Pacote+Mundial+Masters+e+Pan+Nogi
+MOD DETAILS:
+   modFile   : /Users/fernandomendes/github/daxam/public/vqmod/xml/fixedprice.xml_1.6.6.x.xml
+   id        : Fixed Price - OpenCart 1.5.2.x to 1.5.6.x core file modifications
+   version   : 1.1.9.1
+   vqmver    : 1.1.0
+   author    : yolanda_txw@hotmail.com
+
+File Name    : admin/view/template/catalog/product_form.tpl(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): <td><input type="text" name="price" value="<?php echo $price; ?>" /></td>
+
+----------------------------------------------------------------------
+
+
+---------- Date: 2015-05-21 14:55:38 ~ IP : 127.0.0.1 ----------
+REQUEST URI : /pacote.mundial.seniors.las.vegas.2015
+MOD DETAILS:
+   modFile   : /Users/fernandomendes/github/daxam/public/vqmod/xml/price_replace_options.xml
+   id        : price_replace_options_quantities
+   version   : 1.9price_replace_options_quantities
+   vqmver    : 1.0
+   author    : ocextensions.co.uk
+
+File Name    : catalog/view/theme/*/template/product/product.tpl(2)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): <input type="text" name="quantity" size="2" value="<?php echo $minimum; ?>" />
+
+----------------------------------------------------------------------
+
+
+---------- Date: 2015-05-21 15:06:23 ~ IP : 127.0.0.1 ----------
+REQUEST URI : /pacote.mundial.seniors.las.vegas.2015
+MOD DETAILS:
+   modFile   : /Users/fernandomendes/github/daxam/public/vqmod/xml/price_replace_options.xml
+   id        : price_replace_options_quantities
+   version   : 1.9price_replace_options_quantities
+   vqmver    : 1.0
+   author    : ocextensions.co.uk
+
+File Name    : catalog/view/theme/*/template/product/product.tpl(2)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): <input type="text" name="quantity" size="2" value="<?php echo $minimum; ?>" />
+
+----------------------------------------------------------------------
+
+

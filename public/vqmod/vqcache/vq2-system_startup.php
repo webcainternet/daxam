@@ -85,28 +85,7 @@ require_once(VQMod::modCheck(DIR_SYSTEM . 'engine/loader.php'));
 require_once(VQMod::modCheck(DIR_SYSTEM . 'engine/model.php'));
 require_once(VQMod::modCheck(DIR_SYSTEM . 'engine/registry.php'));
 
-
 // Common
-
-$db2 = mysql_connect( DB_HOSTNAME, DB_USERNAME, DB_PASSWORD) or die("Unable to connect to database");
-	mysql_select_db(DB_DATABASE) or die("Unable to select database");
-// Settings
- $sql = "SELECT * FROM " . DB_PREFIX . "setting where store_id='0'";
-$query =mysql_query($sql) or die(mysql_error());
- 	$tm = 0;
-	while($setting = mysql_fetch_assoc($query)){
-if( $setting['key']=='fixed_prices')
-	$tm =  $setting['value'];
-}
-if(!isset($_SESSION))
-session_start();
-
-if($tm)
-$_SESSION['use_fixed_price'] = 1;
-else
-unset($_SESSION['use_fixed_price']);
-
-
 require_once(VQMod::modCheck(DIR_SYSTEM . 'library/cache.php'));
 require_once(VQMod::modCheck(DIR_SYSTEM . 'library/url.php'));
 require_once(VQMod::modCheck(DIR_SYSTEM . 'library/config.php'));

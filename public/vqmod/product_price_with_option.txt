@@ -1,0 +1,42 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1.6 price_with_options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Tested on OC v_1.5.5.1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+YOU MUST HAVE vQmod INSTALLED
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Description
+~~~~~~~~~~~
+
+Displays the price of a product with the option prices added on the product page.
+Price changes with each option selected.
+
+(This extension uses the OC code developed by Kerr Daniel and team but with minor changes)
+
+Files affected
+~~~~~~~~~~~~~~ 
+catalog/controller/product/product.php
+catalog/view/theme/*/template/product/product.tpl
+
+Installation
+~~~~~~~~~~~~
+
+1) Unzip the contents to the root directory of your OpenCart installation, preserving directory structure
+-- NO FILES OVERWRITTEN
+
+WARNING
+~~~~~~~
+
+THIS EXTENSION HAS BEEN THOROUGHLY TESTED ON LINUX, MAC AND WINDOWS SYSTEMS AND ON OPERA, SAFARI, CHROME AND FIREFOX BROWSERS.
+ALL VARIATIONS HAVE BEEN TRIED BUT PLEASE BE AWARE IT IS ALWAYS WISE TO TRY IT OUT ON A TEST SITE BEFORE INSTALLING ON A PRODUCTION SITE. THANK YOU. (NO FILES ARE OVERWRITTEN OR ADDED)
+
+DEMO
+~~~~~
+ocextensions.co.uk
+
+ANOTHER FREE EXTENSION FROM OCEXTENSIONS
+
+
+
