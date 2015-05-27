@@ -3593,3 +3593,12 @@ table.radio {margin:0; display:table}
 #fancybox-content>div {background-color:#fff;}
 #cboxContent .about-page {padding:0 25px}
 #fancybox-content {background-color:#fff;}
+
+
+
+.links .header-button {
+	display: none;
+}
+.col-sm-12 .header-button {
+	display: none;
+}
