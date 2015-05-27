@@ -379,6 +379,7 @@ body.ind .swipe-left {
 .swipe-control  {display:none;}
 #currency {
 	float:right;
+	display: none;
 }
 #currency >div .heading-1 {display:none;}
 .swipe-menu #currency {
