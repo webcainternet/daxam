@@ -240,13 +240,14 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					</div>
 
 					<div class="cart-position">
-						<div class="cart-inner" style="width: 550px; text-align: right;">
+						<div class="cart-inner" style="text-align: right;">
                         	<div style="float: left;
 										  width: 384px;
 										  font-size: 10px;
 										  line-height: 16px;
+										  margin-right: 10px;
 										  color: #c0c0c0;">
-                        	onsulte os prestadores de serviços turísticos regularmente cadastrados e acesse os dados completos desses prestadores. 26.063704.10.0001-1 e serviços turísticos regularmente cadastrados e acesse os dad serviços turísticos regularmente cadastrados e acesse os dad
+                        	Daxam Tour Operator - 26.063704.10.0001-1<br>Rua Demóstenes, 890, Campo Belo, São Paulo, SP, 04614-014<br>Contato: daxam.tur@gmail.com
                         	</div>
                         	<div style="float: right; width: 165px;"><img src="/image/data/cadastur.png"></div>
 						</div>
