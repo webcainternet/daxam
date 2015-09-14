@@ -83,7 +83,7 @@
 				</div>
 			</div>
 			<div class="row" style="float: right; width: 49%; text-align: right;">
-				<img src="http://daxam.com.br/catalog/view/theme/theme390/image/footer-bandeiras.png" style="height: 22px;" height="22">
+				<img src="/catalog/view/theme/theme390/image/footer-bandeiras.png" style="height: 22px;" height="22">
 			</div>
 		</div>
 	</div>
