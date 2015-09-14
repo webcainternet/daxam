@@ -18,14 +18,14 @@ ul.sf-menu > li {
 	z-index: 10;
 	position:relative;
 	border-radius:0;
-	padding:34px 17px;
+	padding:30px 13px;
 	}
 ul.sf-menu > li > a {
 	font-family: 'Open Sans', sans-serif;
 	display:inline-block;
 	z-index: 1;
 	position: relative;
-	font-size:14px;
+	font-size:10px;
 	color:#ffffff;
 	text-decoration:none;
 	line-height:21px;

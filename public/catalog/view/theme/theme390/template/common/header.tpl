@@ -321,7 +321,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 		<div class="row">
 			<div class="col-sm-12">
 				<div id="menu" class="nav__primary">
-					<div id="search">
+					<div id="search" style="display: none;">
 						<div class="inner">
 							<div class="button-search"><i class="fa fa-search"></i></div>
 							<input type="search" name="search" placeholder="<?php echo $text_search; ?>" value="" />
